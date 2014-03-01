@@ -140,5 +140,18 @@ namespace Euler
             var list = GetPrimeNumbers(number);
             return list.Contains(number);
         }
+
+
+        public static List<List<int>> PythagoreanTriplet(int limit)
+        {
+            var list = new List<List<int>>();
+            for (int i = 2; i <= limit; i++)
+                for (int j = i; j <= limit; j++)
+                    for (int k = 2; k <= limit; k++)
+                        if (i * i + j * j - k * k == 0) list.Add(new List<int> { i, j, k });
+            return list;
+        }
+
+
     }
 }

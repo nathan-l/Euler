@@ -26,6 +26,8 @@ namespace Euler
             Debug.WriteLine("Problem 7 :" + Problem7());
             Debug.WriteLine("\n------------------------------------\n");
             Debug.WriteLine("Problem 8 :" + Problem8());
+            Debug.WriteLine("\n------------------------------------\n");
+            Debug.WriteLine("Problem 9 :" + Problem9());
         }
 
         static int Problem2()
@@ -132,5 +134,19 @@ namespace Euler
                 return max;
         }
 
+        static int Problem9()
+        {
+            var triplets = Utils.PythagoreanTriplet(999);
+            var goodTriplet = new List<int>();
+            foreach(var triplet in triplets)
+            {
+                if (triplet.Sum() == 1000)
+                {
+                    goodTriplet = triplet;
+                    break;
+                }
+            }
+            return goodTriplet[0] * goodTriplet[1] * goodTriplet[2];
+        }
     }
 }
