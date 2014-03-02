@@ -101,36 +101,40 @@ namespace Euler
             return num2;
         }
 
-        private static List<int> _primeNumbers = new List<int>();
-        public static List<int> PrimeNumbers { get { return _primeNumbers; } set { _primeNumbers = value; } }
+        private static List<long> _primeNumbers = new List<long>();
+        public static List<long> PrimeNumbers { get { return _primeNumbers; } set { _primeNumbers = value; } }
 
-        public static List<int> GetPrimeNumbers(int limit)
+        public static List<long> GetPrimeNumbers(int limit)
         {
-            //Sieve of Erathostene
-            bool[] isPrime = new bool[limit + 1];
-            for (int i = 2; i <= limit; i++)
+            //for (long number = 2; number < limit; number++)
+            //{
+            //    bool isPrime = true;
+            //    double sqrt = Math.Sqrt(number);
+            //    for (int mod = 2; mod <= sqrt; mod++)
+            //    {
+            //        if (number % mod == 0)
+            //        {
+            //            isPrime = false;
+            //            break;
+            //        }
+            //    }
+            //    if (isPrime)
+            //    {
+            //        PrimeNumbers.Add(number);
+            //    }
+            //}
+            //return PrimeNumbers;
+
+            for (int i = 2; i < limit; i++)
             {
-                isPrime[i] = true;
+                PrimeNumbers.Add(i);
             }
 
-            // mark non-primes <= N using Sieve of Eratosthenes
-            for (int i = 2; i * i <= limit; i++)
+            long currentPrime = 2;
+            while (currentPrime <= Math.Sqrt(limit))
             {
-                // if i is prime, then mark multiples of i as nonprime
-                // suffices to consider mutiples i, i+1, ..., N/i
-                if (isPrime[i])
-                {
-                    for (int j = i; i * j <= limit; j++)
-                    {
-                        isPrime[i * j] = false;
-                    }
-                }
-            }
-
-            // count primes
-            for (int i = 2; i <= limit; i++)
-            {
-                if (isPrime[i] && !PrimeNumbers.Contains(i)) PrimeNumbers.Add(i) ;
+                PrimeNumbers.RemoveAll(x => x % currentPrime == 0 && x != currentPrime);
+                currentPrime = PrimeNumbers.First(x => x > currentPrime);
             }
             return PrimeNumbers;
         }
@@ -150,6 +154,29 @@ namespace Euler
                     for (int k = 2; k <= limit; k++)
                         if (i * i + j * j - k * k == 0) list.Add(new List<int> { i, j, k });
             return list;
+        }
+
+        public static long PrimeNumberSum(int limit)
+        {
+            long sum = 0;
+            for (long number = 2; number < limit; number++)
+            {
+                bool isPrime = true;
+                double sqrt = Math.Sqrt(number);
+                for (int mod = 2; mod <= sqrt; mod++)
+                {
+                    if (number % mod == 0)
+                    {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime)
+                {
+                    sum += number;
+                }
+            }
+            return sum;
         }
 
 
