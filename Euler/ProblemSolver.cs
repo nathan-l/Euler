@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -218,5 +221,88 @@ namespace Euler
 
             return max;
         }
+
+        long Problem12()
+        {
+            long triangle = 0;
+            for(int i=0;i<100000;i++)
+            {
+                triangle += i;
+                var nbDivisor = 0;
+                for (int j = 1; j <= Math.Sqrt(triangle); j++)
+                {
+                    if (triangle % j == 0) nbDivisor+=2;
+                }
+                if (Math.Sqrt(triangle) * Math.Sqrt(triangle) == triangle) nbDivisor--;
+                if (nbDivisor > 500)
+                    break;
+            }
+            return triangle;
+        }
+
+        long Problem13()
+        {
+            string filename = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\pb13.txt";
+            BigInteger result = new BigInteger();
+            StreamReader r = new StreamReader(filename);
+            string line;
+            while ((line = r.ReadLine()) != null)
+            {
+                result += BigInteger.Parse(line);
+            }
+            r.Close();
+            var retour = result.ToString().Substring(0,10) ;
+            return long.Parse(retour);
+        }
+        int Problem14()
+        {
+            var limit = 1000000;
+            var max = 1;
+            var result = 1;
+            long number;
+            var chainLength = 1;
+            for (int startingNumber = 1; startingNumber < limit; startingNumber++ )
+            {
+                //code to generate chain
+                number = startingNumber;
+                chainLength = 1;
+                while (number != 1)
+                {
+                    chainLength++;
+                    if (number % 2 == 0) number /= 2;
+                    else number = 3 * number + 1;
+                    
+                }
+                if(chainLength>max)
+                {
+                    max = chainLength;
+                    result = startingNumber;
+                }
+            }
+            return result;
+        }
+
+
+        long Problem15()
+        {
+            //Binomial 20 parmis 40
+            var gridSize = 20;
+
+            var grid = new long[gridSize+1, gridSize+1];
+            for (int i = 0; i < gridSize; i++)
+            {
+                grid[i, gridSize] = 1;
+                grid[gridSize, i] = 1;
+            }
+            for (int i = gridSize - 1; i >= 0; i--)
+            {
+                for (int j = gridSize - 1; j >= 0; j--)
+                {
+                    grid[i, j] = grid[i + 1, j] + grid[i, j + 1];
+                }
+            }
+            return grid[0, 0];
+        }
+
     }
 }

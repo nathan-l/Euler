@@ -178,7 +178,5 @@ namespace Euler
             }
             return sum;
         }
-
-
     }
 }
