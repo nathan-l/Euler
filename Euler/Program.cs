@@ -13,7 +13,7 @@ namespace Euler
         //TODO make a choice in command line program. Add scanner.
         static void Main(string[] args)
         {
-            ProblemPrinter(15);
+            ProblemPrinter(18);
             int PROBLEMS = 15;
             //for (int i = 1; i <= PROBLEMS;i++ )
                 //ProblemPrinter(i);
